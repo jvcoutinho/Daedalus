@@ -8,15 +8,28 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "WATTest",
+"language": "GDScript",
+"path": "res://addons/WAT/Runner/test.gd"
+} ]
 _global_script_class_icons={
-
+"WATTest": ""
 }
+
+[WAT]
+
+Test_Directory="res://tests"
 
 [application]
 
 config/name="Daedalus"
 config/icon="res://icon.png"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "WAT" )
 
 [rendering]
 
