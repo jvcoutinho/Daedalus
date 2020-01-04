@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.596078, 0.392157, 0.392157, 1 )
+
+[node name="Floor" type="CSGBox"]
+calculate_tangents = false
+use_collision = true
+height = 0.001
+material = SubResource( 1 )

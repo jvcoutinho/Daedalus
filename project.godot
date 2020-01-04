@@ -9,12 +9,66 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "Algorithm",
+"language": "GDScript",
+"path": "res://src/Maze/Maze Generator/algorithms/Algorithm.gd"
+}, {
+"base": "Algorithm",
+"class": "BinaryTree",
+"language": "GDScript",
+"path": "res://src/Maze/Maze Generator/algorithms/BinaryTree.gd"
+}, {
+"base": "Reference",
+"class": "Cell",
+"language": "GDScript",
+"path": "res://src/Maze/Maze Generator/Cell.gd"
+}, {
+"base": "Algorithm",
+"class": "Eller",
+"language": "GDScript",
+"path": "res://src/Maze/Maze Generator/algorithms/Eller.gd"
+}, {
+"base": "Reference",
+"class": "Maze",
+"language": "GDScript",
+"path": "res://src/Maze/Maze Generator/Maze.gd"
+}, {
+"base": "Algorithm",
+"class": "Prim",
+"language": "GDScript",
+"path": "res://src/Maze/Maze Generator/algorithms/Prim.gd"
+}, {
+"base": "Algorithm",
+"class": "RecursiveBacktracker",
+"language": "GDScript",
+"path": "res://src/Maze/Maze Generator/algorithms/RecursiveBacktracker.gd"
+}, {
+"base": "Algorithm",
+"class": "RecursiveDivision",
+"language": "GDScript",
+"path": "res://src/Maze/Maze Generator/algorithms/RecursiveDivision.gd"
+}, {
+"base": "Reference",
+"class": "Utils",
+"language": "GDScript",
+"path": "res://src/Maze/Maze Generator/algorithms/Utils.gd"
+}, {
 "base": "Node",
 "class": "WATTest",
 "language": "GDScript",
 "path": "res://addons/WAT/Runner/test.gd"
 } ]
 _global_script_class_icons={
+"Algorithm": "",
+"BinaryTree": "",
+"Cell": "",
+"Eller": "",
+"Maze": "",
+"Prim": "",
+"RecursiveBacktracker": "",
+"RecursiveDivision": "",
+"Utils": "",
 "WATTest": ""
 }
 
@@ -26,6 +80,10 @@ Test_Directory="res://tests"
 
 config/name="Daedalus"
 config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/shadowed_variable=false
 
 [editor_plugins]
 
