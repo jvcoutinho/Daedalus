@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Characters/Daedalus.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.180392, 0.572549, 0.803922, 1 )
+
+[node name="Daedalus" type="CSGSphere"]
+calculate_tangents = false
+use_collision = true
+radius = 0.5
+material = SubResource( 1 )
+script = ExtResource( 1 )

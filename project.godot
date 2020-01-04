@@ -79,6 +79,7 @@ Test_Directory="res://tests"
 [application]
 
 config/name="Daedalus"
+run/main_scene="res://src/Main/Game.tscn"
 config/icon="res://icon.png"
 
 [debug]

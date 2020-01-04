@@ -6,5 +6,6 @@ albedo_color = Color( 0.282353, 0.282353, 0.282353, 1 )
 [node name="Wall" type="CSGBox"]
 calculate_tangents = false
 use_collision = true
+height = 5.0
 depth = 0.3
 material = SubResource( 1 )
