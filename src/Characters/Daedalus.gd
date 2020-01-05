@@ -1,4 +1,4 @@
-extends CSGSphere
+extends KinematicBody
 
 export(float) var speed := 4
 
@@ -14,7 +14,8 @@ func _input(event):
 			direction = _calculate_direction(swipe_initial_position, swipe_final_position)
 
 func _physics_process(delta):
-	translation += direction * speed * delta
+	move_and_slide(direction * speed)
+	#translate(direction * speed * delta)
 	
 func _calculate_direction(initial: Vector2, final: Vector2) -> Vector3:
 	var direction = (final - initial).normalized()

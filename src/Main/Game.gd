@@ -2,10 +2,12 @@ extends Spatial
 
 onready var maze_manager := $"Maze Manager"
 onready var camera := $Camera
-onready var daedalus := $Daedalus
+onready var player := $Daedalus
 
 func _ready():
 	maze_manager.instantiate_maze()
-
-func _physics_process(delta):
-	camera.translation = Vector3(daedalus.translation.x, camera.translation.y, daedalus.translation.z + 2)
+	player.translate(maze_manager.get_world_coordinates(0, 0))
+	
+func _process(delta):
+	camera.translation = Vector3(player.translation.x, camera.translation.y, player.translation.z + 2.5)
+	$Label.text = str(Engine.get_frames_per_second())
