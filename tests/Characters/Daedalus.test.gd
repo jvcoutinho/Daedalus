@@ -92,10 +92,17 @@ func test_swipe_too_short():
 	asserts.is_equal(Vector3.ZERO, daedalus.direction)
 	
 func test_using_icarus_wings():
-	describe("Tests if using Icarus' Wings increases Daedalus' speed")
+	describe("Using Icarus' Wings increases Daedalus' speed")
 	
-	daedalus.uses_wings()
+	daedalus.use_wings()
 	asserts.is_equal(daedalus.WINGS_SPEED, daedalus.speed)
+	
+func test_using_ancient_greek_food():
+	describe("Eating Ancient Greek's Food fills Daedalus' life and prevents it to decrease for some seconds")
+	
+	daedalus.use_food()
+	yield(until_timeout(daedalus.FOOD_FULL_TIME), YIELD)
+	asserts.is_equal(daedalus.life, 100)
 	
 	
 	

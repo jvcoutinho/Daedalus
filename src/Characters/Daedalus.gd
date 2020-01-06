@@ -3,6 +3,7 @@ extends KinematicBody
 const REGULAR_SPEED: float = 3.0 # Pixels/second
 const WINGS_SPEED: float = 5.0
 const SWIPE_MINIMUM_LENGTH: float = 20.0
+const LIFE_DECAIMENT: float = 1.0
 
 # Movement
 var speed := REGULAR_SPEED
@@ -10,6 +11,9 @@ var direction := Vector3.ZERO
 var swipe_initial_position: Vector2
 var swipe_final_position: Vector2
 var swipping := false
+
+# Life
+var life: float = 100.0
 
 func _input(event):
 	"""
@@ -30,6 +34,9 @@ func _input(event):
 
 func _physics_process(delta):
 	move_and_collide(direction * speed * delta)
+	
+func _process(delta):
+	life -= LIFE_DECAIMENT * delta
 
 func _calculate_direction(swipe: Vector2) -> Vector3:
 	var direction = swipe.normalized()

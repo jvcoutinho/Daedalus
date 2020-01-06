@@ -6,6 +6,7 @@ onready var next_maze := $"Next Maze"
 const Floor = preload("res://src/Maze/Components/Floor.tscn")
 const Wall =  preload("res://src/Maze/Components/Wall.tscn")
 const Wings = preload("res://src/Maze/Items/Wings.tscn")
+const Food = preload("res://src/Maze/Items/Food.tscn")
 
 export(float) var cell_width = 4.0
 export(float) var cell_height = 2.0
@@ -51,7 +52,7 @@ func instantiate_maze() -> void:
 				
 			# Instantiate items.
 			if row == 1 and column == 0:
-				positionate_item(left_boundary, bottom_boundary, Wings.instance())
+				positionate_item(left_boundary, bottom_boundary, Food.instance())
 
 func positionate_item(x: float, z: float, item: Spatial) -> void:
 	item.translate(Vector3(x, 0.5, z))
