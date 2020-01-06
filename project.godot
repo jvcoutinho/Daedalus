@@ -105,9 +105,11 @@ pointing/emulate_touch_from_mouse=true
 [layer_names]
 
 3d_physics/layer_1="Environment"
+3d_physics/layer_2="Items"
 
 [rendering]
 
 quality/driver/driver_name="GLES2"
 threads/thread_model=2
+vram_compression/import_etc=true
 environment/default_environment="res://default_env.tres"

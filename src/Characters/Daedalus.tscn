@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Characters/Daedalus.gd" type="Script" id=1]
 
@@ -8,6 +8,9 @@ radius = 0.5
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.180392, 0.572549, 0.803922, 1 )
 
+[sub_resource type="SphereShape" id=4]
+radius = 0.5
+
 [node name="KinematicBody" type="KinematicBody"]
 collision_layer = 0
 script = ExtResource( 1 )
@@ -16,6 +19,14 @@ script = ExtResource( 1 )
 shape = SubResource( 3 )
 
 [node name="Daedalus" type="CSGSphere" parent="."]
-calculate_tangents = false
 radius = 0.5
 material = SubResource( 2 )
+
+[node name="Item Detector" type="Area" parent="."]
+monitorable = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Item Detector"]
+shape = SubResource( 4 )
+[connection signal="body_entered" from="Item Detector" to="." method="_on_Item_Detector_body_entered"]

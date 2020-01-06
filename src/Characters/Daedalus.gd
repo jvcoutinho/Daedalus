@@ -2,8 +2,12 @@ extends KinematicBody
 
 export(float) var speed := 4
 
+# Movement
 var direction := Vector3.ZERO
 var swipe_initial_position: Vector2
+
+# Items
+var using_wings := false
 
 func _input(event):
 	if event is InputEventScreenTouch:
@@ -15,7 +19,7 @@ func _input(event):
 
 func _physics_process(delta):
 	move_and_collide(direction * speed * delta)
-	
+
 func _calculate_direction(initial: Vector2, final: Vector2) -> Vector3:
 	var direction = (final - initial).normalized()
 	
@@ -34,3 +38,10 @@ func _calculate_direction(initial: Vector2, final: Vector2) -> Vector3:
 			return Vector3.BACK
 		else:
 			return Vector3.FORWARD
+
+func _on_Item_Detector_body_entered(body: Node):
+	if body.is_in_group("items"):
+		body.queue_free() # Remove from the maze.
+		if body.name.begins_with("Wings"):
+			using_wings = true
+			speed = 6.0

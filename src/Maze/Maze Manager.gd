@@ -5,13 +5,14 @@ onready var next_maze := $"Next Maze"
 
 const Floor = preload("res://src/Maze/Components/Floor.tscn")
 const Wall =  preload("res://src/Maze/Components/Wall.tscn")
+const Wings = preload("res://src/Maze/Items/Wings.tscn")
 
 export(float) var cell_width = 4.0
 export(float) var cell_height = 2.0
 export(float) var wall_height = 2.0
 
 func get_world_coordinates(row: int, column: int) -> Vector3:
-	return Vector3(row * cell_width, 0, column * cell_height)
+	return Vector3(row * cell_width, 0.5, column * cell_height)
 
 func instantiate_maze() -> void:
 	var generator := $"Maze Generator"
@@ -48,7 +49,15 @@ func instantiate_maze() -> void:
 			if cell.walls.N:
 				instantiate_wall(left_boundary, top_boundary, 0, cell_width)
 				
-func instantiate_wall(x: float, z: float, y_rotation: float, width: float):
+			# Instantiate items.
+			if row == 1 and column == 0:
+				positionate_item(left_boundary, bottom_boundary, Wings.instance())
+
+func positionate_item(x: float, z: float, item: Spatial) -> void:
+	item.translate(Vector3(x, 0.5, z))
+	current_maze.add_child(item)
+
+func instantiate_wall(x: float, z: float, y_rotation: float, width: float) -> void:
 	var wall = Wall.instance()
 	wall.translate(Vector3(x, 0, z))
 	wall.width = width
