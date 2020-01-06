@@ -12,7 +12,7 @@ export(float) var cell_height = 2.0
 export(float) var wall_height = 2.0
 
 func get_world_coordinates(row: int, column: int) -> Vector3:
-	return Vector3(row * cell_width, 0.5, column * cell_height)
+	return Vector3(row * cell_width, 0.5, column * cell_height) + current_maze.translation
 
 func instantiate_maze() -> void:
 	var generator := $"Maze Generator"
