@@ -1,10 +1,11 @@
 extends KinematicBody
 
-export(float) var regular_speed: float = 3.0 # Pixels/second
-export(float) var wings_speed: float = 5.0
-var speed := regular_speed
+const REGULAR_SPEED: float = 3.0 # Pixels/second
+const WINGS_SPEED: float = 5.0
+const SWIPE_MINIMUM_LENGTH: float = 20.0
 
 # Movement
+var speed := REGULAR_SPEED
 var direction := Vector3.ZERO
 var swipe_initial_position: Vector2
 var swipe_final_position: Vector2
@@ -20,16 +21,18 @@ func _input(event):
 			swipe_final_position = swipe_initial_position
 			swipping = true
 		elif not event.is_pressed() and swipping: # Releasing touch.
-			direction = _calculate_direction(swipe_initial_position, swipe_final_position)
+			var swipe = swipe_final_position - swipe_initial_position
+			if swipe.length() > SWIPE_MINIMUM_LENGTH:
+				direction = _calculate_direction(swipe)
 			swipping = false
 	elif event is InputEventScreenDrag and swipping: # Swipping.
-		swipe_final_position += event.relative
+		swipe_final_position = event.position + event.relative
 
 func _physics_process(delta):
 	move_and_collide(direction * speed * delta)
 
-func _calculate_direction(initial: Vector2, final: Vector2) -> Vector3:
-	var direction = (final - initial).normalized()
+func _calculate_direction(swipe: Vector2) -> Vector3:
+	var direction = swipe.normalized()
 	
 	if direction.length() == 0:
 		return Vector3.ZERO
@@ -48,7 +51,7 @@ func _calculate_direction(initial: Vector2, final: Vector2) -> Vector3:
 			return Vector3.FORWARD
 			
 func uses_wings():
-	speed = wings_speed
+	speed = WINGS_SPEED
 
 func _on_Item_Detector_body_entered(body: Node):
 	if body.is_in_group("items"):

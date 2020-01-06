@@ -69,11 +69,33 @@ func test_swipe_requires_drag():
 	
 	asserts.is_equal(Vector3.ZERO, daedalus.direction)
 	
+func test_swipe_too_short():
+	describe("Swipping too shortly doesn't change direction")
+	
+	# First touch.
+	var touch = InputEventScreenTouch.new()
+	touch.position = Vector2(0, 0)
+	touch.pressed = true
+	daedalus._input(touch)
+	
+	# Drag it.
+	var drag = InputEventScreenDrag.new()
+	drag.position = Vector2(0, 0)
+	drag.relative = Vector2(daedalus.SWIPE_MINIMUM_LENGTH, 0)
+	daedalus._input(drag)
+	
+	# Release finger.
+	touch.position = Vector2(daedalus.SWIPE_MINIMUM_LENGTH, 0)
+	touch.pressed = false
+	daedalus._input(touch)
+	
+	asserts.is_equal(Vector3.ZERO, daedalus.direction)
+	
 func test_using_icarus_wings():
 	describe("Tests if using Icarus' Wings increases Daedalus' speed")
 	
 	daedalus.uses_wings()
-	asserts.is_equal(daedalus.wings_speed, daedalus.speed)
+	asserts.is_equal(daedalus.WINGS_SPEED, daedalus.speed)
 	
 	
 	
