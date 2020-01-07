@@ -1,2 +1,4 @@
 language: minimal
-script: ./run_tests.sh
+script:
+  - chmod +x run_tests.sh 
+  - ./run_tests.sh
