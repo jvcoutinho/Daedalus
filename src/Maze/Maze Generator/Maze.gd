@@ -1,3 +1,4 @@
+extends Spatial
 class_name Maze
 """
 Representation of a maze.

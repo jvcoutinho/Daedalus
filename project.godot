@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Maze/Maze Generator/algorithms/Eller.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "Maze",
 "language": "GDScript",
 "path": "res://src/Maze/Maze Generator/Maze.gd"
@@ -53,11 +53,6 @@ _global_script_classes=[ {
 "class": "Utils",
 "language": "GDScript",
 "path": "res://src/Maze/Maze Generator/algorithms/Utils.gd"
-}, {
-"base": "Node",
-"class": "WATTest",
-"language": "GDScript",
-"path": "res://addons/WAT/Runner/test.gd"
 } ]
 _global_script_class_icons={
 "Algorithm": "",
@@ -68,8 +63,7 @@ _global_script_class_icons={
 "Prim": "",
 "RecursiveBacktracker": "",
 "RecursiveDivision": "",
-"Utils": "",
-"WATTest": ""
+"Utils": ""
 }
 
 [WAT]
@@ -96,7 +90,7 @@ window/handheld/orientation="portrait"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "WAT" )
+enabled=PoolStringArray( "gut" )
 
 [input_devices]
 

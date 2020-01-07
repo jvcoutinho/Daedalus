@@ -53,6 +53,10 @@ func instantiate_maze() -> void:
 			# Instantiate items.
 			if row == 1 and column == 0:
 				positionate_item(left_boundary, bottom_boundary, Food.instance())
+				
+			current_maze.grid = maze.grid
+			current_maze.number_rows = maze.number_rows
+			current_maze.number_columns = maze.number_columns
 
 func positionate_item(x: float, z: float, item: Spatial) -> void:
 	item.translate(Vector3(x, 0.5, z))
