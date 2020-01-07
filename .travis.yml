@@ -1,4 +1,16 @@
 language: minimal
+
+env:
+  global:
+    - GODOT_VERSION=3.1.2 
+    - GODOT_BIN=Godot_v${GODOT_VERSION}-stable_linux_headless.64 
+    - GODOT_ZIP=${GODOT_BIN}.zip 
+    - GODOT_URL=https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${GODOT_ZIP} 
+
+before_script:
+  - curl ${GODOT_URL} --output ${GODOT_ZIP}
+  - unzip ${GODOT_ZIP}
+  - chmod +x ${GODOT_BIN}
+
 script:
-  - chmod +x run_tests.sh 
-  - ./run_tests.sh
+  - ./${GODOT_BIN} -d -s --path ./project addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
