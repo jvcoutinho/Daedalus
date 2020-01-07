@@ -12,7 +12,7 @@ func after_each():
 	
 func test_maze_generation():
 	maze_manager.instantiate_maze()
-	var current_maze := maze_manager.get_node("Current Maze")
+	var current_maze: Node = maze_manager.current_maze
 	var grid_size = current_maze.number_rows * current_maze.number_columns
 	
 	# Counting number of floors
