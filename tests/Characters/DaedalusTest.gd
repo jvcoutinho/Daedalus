@@ -99,6 +99,6 @@ func test_using_ancient_greek_food():
 	daedalus.life = 30.0
 	
 	daedalus.use_food()
-	yield(yield_for(5), YIELD)
+	yield(yield_for(daedalus.FOOD_FULL_TIME - 0.5), YIELD)
 	assert_eq(daedalus.life, 100.0, 
 			"Eating Ancient Greek's Food fills Daedalus' life and prevents it to decrease for some seconds")
