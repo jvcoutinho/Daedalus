@@ -13,4 +13,4 @@ before_script:
   - chmod +x ${GODOT_BIN}
 
 script:
-  - ./${GODOT_BIN} -d -s --path ./project addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
+  - ./${GODOT_BIN} -d -s --path ./project addons/gut/gut_cmdln.gd -gprefix="" -gsuffix=Test.gd -gdir=res://tests -ginclude_subdirs -gexit
