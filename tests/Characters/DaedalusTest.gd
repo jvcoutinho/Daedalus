@@ -102,17 +102,3 @@ func test_using_ancient_greek_food():
 	yield(yield_for(daedalus.FOOD_FULL_TIME - 0.5), YIELD)
 	assert_eq(daedalus.life, 100.0, 
 			"Eating Ancient Greek's Food fills Daedalus' life and prevents it to decrease for some seconds")
-			
-func test_using_apolo_ink():
-	var ink_color = Color.red
-	
-	var maze = load("res://src/Maze/Maze Manager.tscn").instance()
-	add_child(maze)
-	maze.instantiate_maze()
-	daedalus.use_ink(Vector2.LEFT, ink_color)
-	
-	var painted_wall_material: SpatialMaterial = maze.current_maze.wall_at(0, 0, "L").material
-	assert_eq(painted_wall_material.albedo_color, ink_color)
-	
-	maze.free()
-	

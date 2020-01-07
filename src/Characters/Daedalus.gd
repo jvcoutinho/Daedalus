@@ -1,5 +1,7 @@
 extends KinematicBody
 
+signal wall_painted(player_position, wall, color)
+
 const REGULAR_SPEED: float = 3.0 # Pixels/second
 const WINGS_SPEED: float = 5.0
 const SWIPE_MINIMUM_LENGTH: float = 20.0
@@ -67,6 +69,9 @@ func use_food():
 	life_decaiment = 0
 	yield(get_tree().create_timer(FOOD_FULL_TIME), "timeout")
 	life_decaiment = REGULAR_LIFE_DECAIMENT
+	
+func use_ink(wall: String, color: Color):
+	emit_signal("wall_painted", translation, wall, color)
 
 func _on_Item_Detector_body_entered(body: Node):
 	if body.is_in_group("items"):
