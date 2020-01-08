@@ -36,7 +36,7 @@ func _input(event):
 			swipping = false
 	elif event is InputEventScreenDrag and swipping: # Swipping.
 		swipe_final_position = event.position + event.relative
-
+	
 func _physics_process(delta):
 	var _collision := move_and_collide(direction * speed * delta)
 	

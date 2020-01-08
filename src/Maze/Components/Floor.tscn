@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
 [sub_resource type="SpatialMaterial" id=1]
+resource_local_to_scene = true
 albedo_color = Color( 0.596078, 0.392157, 0.392157, 1 )
 
 [node name="Floor" type="CSGBox"]
