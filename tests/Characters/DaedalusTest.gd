@@ -1,6 +1,6 @@
 extends "res://addons/gut/test.gd"
 
-const Daedalus = preload("res://src/Characters/Daedalus.tscn")
+const Daedalus = preload("res://src/Characters/Player.tscn")
 var daedalus: Spatial
 
 func before_each():
@@ -99,6 +99,43 @@ func test_using_ancient_greek_food():
 	daedalus.life = 30.0
 	
 	daedalus.use_food()
-	yield(yield_for(daedalus.FOOD_FULL_TIME - 0.5), YIELD)
-	assert_eq(daedalus.life, 100.0, 
+	yield(yield_for(daedalus.FOOD_FULL_TIME + 0.5), YIELD)
+	assert_gt(daedalus.life, 90.0, 
 			"Eating Ancient Greek's Food fills Daedalus' life and prevents it to decrease for some seconds")
+			
+func test_using_apolo_ink():
+	var maze: Spatial = load("res://src/Phase/Maze.gd").new()
+	maze.number_rows = 2
+	maze.number_columns = 5
+	maze.random_seed = 1
+	add_child(maze)
+	
+	var error := daedalus.connect("used_ink", maze, "_on_Player_used_ink")
+	assert_not_null(error)
+	daedalus.translation = maze.to_world_coordinates(0, 0)
+	
+	daedalus.use_ink(Constants.WEST_WALL, Color.green)
+	assert_true(walls_are_painted(maze, maze.get_column(0), Constants.WEST_WALL, Color.green), "Paints all column")
+	
+	daedalus.use_ink(Constants.SOUTH_WALL, Color.red)
+	assert_true(walls_are_painted(maze, [maze.cell_at(0, 0)], Constants.SOUTH_WALL, Color.red), "Paints only the first cell")
+	
+	daedalus.use_ink(Constants.EAST_WALL, Color.green)
+	assert_true(walls_are_painted(maze, [maze.cell_at(0, 0)], Constants.EAST_WALL, Color.green), "Paints only the first column")
+	
+	daedalus.use_ink(Constants.NORTH_WALL, Color.blue)
+	assert_false(walls_are_painted(maze, [maze.cell_at(0, 0)], Constants.NORTH_WALL, Color.blue), "Paints nothing")
+		
+	maze.free()
+	
+func walls_are_painted(maze: Node, cells: Array, wall: String, color: Color) -> bool:
+	for cell in cells:
+		var world_cell_name = MazeInstancer.get_cell_node_name(cell.row, cell.column)
+		var world_cell = maze.get_node(world_cell_name)
+		if not world_cell.has_node(wall):
+			return false
+		var world_wall = world_cell.get_node(wall)
+		printt(world_wall.material.albedo_color, color)
+		if world_wall.material.albedo_color != color:
+			return false
+	return true
