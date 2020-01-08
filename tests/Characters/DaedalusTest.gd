@@ -114,17 +114,17 @@ func test_using_apolo_ink():
 	assert_not_null(error)
 	daedalus.translation = maze.to_world_coordinates(0, 0)
 	
-	daedalus.use_ink(Constants.WEST_WALL, Color.green)
-	assert_true(walls_are_painted(maze, maze.get_column(0), Constants.WEST_WALL, Color.green), "Paints all column")
+	daedalus.use_ink(WallOrientation.WEST_WALL, Color.green)
+	assert_true(walls_are_painted(maze, maze.get_column(0), WallOrientation.WEST_WALL, Color.green), "Paints all column")
 	
-	daedalus.use_ink(Constants.SOUTH_WALL, Color.red)
-	assert_true(walls_are_painted(maze, [maze.cell_at(0, 0)], Constants.SOUTH_WALL, Color.red), "Paints only the first cell")
+	daedalus.use_ink(WallOrientation.SOUTH_WALL, Color.red)
+	assert_true(walls_are_painted(maze, [maze.cell_at(0, 0)], WallOrientation.SOUTH_WALL, Color.red), "Paints only the first cell")
 	
-	daedalus.use_ink(Constants.EAST_WALL, Color.green)
-	assert_true(walls_are_painted(maze, [maze.cell_at(0, 0)], Constants.EAST_WALL, Color.green), "Paints only the first column")
+	daedalus.use_ink(WallOrientation.EAST_WALL, Color.green)
+	assert_true(walls_are_painted(maze, [maze.cell_at(0, 0)], WallOrientation.EAST_WALL, Color.green), "Paints only the first column")
 	
-	daedalus.use_ink(Constants.NORTH_WALL, Color.blue)
-	assert_false(walls_are_painted(maze, [maze.cell_at(0, 0)], Constants.NORTH_WALL, Color.blue), "Paints nothing")
+	daedalus.use_ink(WallOrientation.NORTH_WALL, Color.blue)
+	assert_false(walls_are_painted(maze, [maze.cell_at(0, 0)], WallOrientation.NORTH_WALL, Color.blue), "Paints nothing")
 		
 	maze.free()
 	
@@ -157,5 +157,36 @@ func test_using_living_fire():
 		var world_cell = maze.world_cell_at(cell.row, cell.column)
 		var floor_node = world_cell.get_node("Floor")
 		assert_eq(floor_node.material.albedo_color, Color.gray)
+
+	maze.free()
+	
+func test_using_creator_axe():
+	var maze: Spatial = load("res://src/Phase/Maze.gd").new()
+	maze.number_rows = 2
+	maze.number_columns = 5
+	maze.random_seed = 1
+	add_child(maze)
+	
+	var error := daedalus.connect("used_axe", maze, "_on_Player_used_axe")
+	assert_not_null(error)
+	daedalus.translation = maze.to_world_coordinates(0, 0)
+	
+	var world_cell = maze.world_cell_at(0, 0)
+	daedalus.use_axe(WallOrientation.EAST_WALL)
+	daedalus.use_axe(WallOrientation.WEST_WALL)
+	daedalus.use_axe(WallOrientation.SOUTH_WALL)
+	yield(yield_for(1), YIELD)
+	assert_false(world_cell.has_node(WallOrientation.EAST_WALL), "Deletes when not at borders.")	
+	assert_true(world_cell.has_node(WallOrientation.WEST_WALL), "Does not delete at west borders.")	
+	assert_true(world_cell.has_node(WallOrientation.SOUTH_WALL), "Does not delete at south borders.")
+	
+	world_cell = maze.world_cell_at(1, 4)
+	daedalus.translation = maze.to_world_coordinates(1, 4)
+	daedalus.use_axe(WallOrientation.NORTH_WALL)
+	daedalus.use_axe(WallOrientation.EAST_WALL)
+	yield(yield_for(1), YIELD)
+	assert_true(world_cell.has_node(WallOrientation.NORTH_WALL), "Does not delete at north borders.")	
+	assert_true(world_cell.has_node(WallOrientation.EAST_WALL), "Does not delete at east borders.")
+	
 
 	maze.free()
