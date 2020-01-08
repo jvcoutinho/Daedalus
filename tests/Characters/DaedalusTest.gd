@@ -139,3 +139,23 @@ func walls_are_painted(maze: Node, cells: Array, wall: String, color: Color) -> 
 		if world_wall.material.albedo_color != color:
 			return false
 	return true
+	
+func test_using_living_fire():
+	var maze: Spatial = load("res://src/Phase/Maze.gd").new()
+	maze.number_rows = 2
+	maze.number_columns = 5
+	maze.random_seed = 1
+	add_child(maze)
+	
+	var error := daedalus.connect("used_fire", maze, "_on_Player_used_fire")
+	assert_not_null(error)
+	daedalus.translation = maze.to_world_coordinates(0, 2)
+	
+	daedalus.use_fire()
+	var cells_to_enlight = [maze.cell_at(0, 2), maze.cell_at(1, 2), maze.cell_at(1, 1), maze.cell_at(1, 0)]
+	for cell in cells_to_enlight:
+		var world_cell = maze.world_cell_at(cell.row, cell.column)
+		var floor_node = world_cell.get_node("Floor")
+		assert_eq(floor_node.material.albedo_color, Color.gray)
+
+	maze.free()
