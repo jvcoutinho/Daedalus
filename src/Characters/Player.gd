@@ -2,6 +2,7 @@ extends KinematicBody
 
 signal used_ink(player_position, wall, color)
 signal used_fire(player_position)
+signal used_axe(player_position, wall)
 
 const REGULAR_SPEED: float = 3.0 # Pixels/second
 const WINGS_SPEED: float = 5.0
@@ -76,6 +77,9 @@ func use_ink(wall: String, color: Color):
 	
 func use_fire():
 	emit_signal("used_fire", translation)
+	
+func use_axe(wall: String):
+	emit_signal("used_axe", translation, wall)
 
 func _on_Item_Detector_body_entered(body: Node):
 	if body.is_in_group("items"):

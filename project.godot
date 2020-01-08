@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Maze/Maze Generator/Cell.gd"
 }, {
-"base": "Reference",
-"class": "Constants",
-"language": "GDScript",
-"path": "res://src/Phase/Constants.gd"
-}, {
 "base": "Algorithm",
 "class": "Eller",
 "language": "GDScript",
@@ -63,19 +58,24 @@ _global_script_classes=[ {
 "class": "Utils",
 "language": "GDScript",
 "path": "res://src/Maze/Maze Generator/algorithms/Utils.gd"
+}, {
+"base": "Reference",
+"class": "WallOrientation",
+"language": "GDScript",
+"path": "res://src/Phase/WallOrientation.gd"
 } ]
 _global_script_class_icons={
 "Algorithm": "",
 "BinaryTree": "",
 "Cell": "",
-"Constants": "",
 "Eller": "",
 "Maze": "",
 "MazeInstancer": "",
 "Prim": "",
 "RecursiveBacktracker": "",
 "RecursiveDivision": "",
-"Utils": ""
+"Utils": "",
+"WallOrientation": ""
 }
 
 [WAT]

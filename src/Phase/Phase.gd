@@ -10,6 +10,7 @@ func _ready():
 	camera.target = player
 	player.connect("used_ink", maze, "_on_Player_used_ink")
 	player.connect("used_fire", maze, "_on_Player_used_fire")
+	player.connect("used_axe", maze, "_on_Player_used_axe")
 	
 func _process(_delta):
 	var life_text = str(ceil(player.life))

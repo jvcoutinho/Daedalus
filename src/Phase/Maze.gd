@@ -89,7 +89,7 @@ func paint_adjacent_walls(start_cell: Cell, wall: String, color: Color) -> void:
 	var neighbours: Array
 	
 	# Vertical painting.
-	if wall == Constants.EAST_WALL or wall == Constants.WEST_WALL:
+	if wall == WallOrientation.EAST_WALL or wall == WallOrientation.WEST_WALL:
 		neighbours = get_vertical_neighbours(start_cell)
 	else:
 		neighbours = get_horizontal_neighbours(start_cell)
@@ -157,6 +157,27 @@ func enlight_path(initial_cell: Cell, final_cell: Cell) -> void:
 func enlight(floor_node: Spatial) -> void:
 	floor_node.material.albedo_color = Color.gray
 	
+func destroy_symmetric_walls(cell: Cell, wall: String) -> void:
+	var world_cell := world_cell_at(cell.row, cell.column)
+	
+	var adjacent_cell: Spatial
+	if wall == WallOrientation.EAST_WALL and cell.column < number_columns - 1:
+		adjacent_cell = world_cell_at(cell.row, cell.column + 1)
+	elif wall == WallOrientation.WEST_WALL and cell.column > 0:
+		adjacent_cell = world_cell_at(cell.row, cell.column - 1)
+	elif wall == WallOrientation.NORTH_WALL and cell.row < number_rows - 1:
+		adjacent_cell = world_cell_at(cell.row + 1, cell.column)
+	elif wall == WallOrientation.SOUTH_WALL and cell.row > 0:
+		adjacent_cell = world_cell_at(cell.row - 1, cell.column)
+	
+	if world_cell.has_node(wall) and adjacent_cell:
+		var world_wall := world_cell.get_node(wall)
+		var symmetric_wall := WallOrientation.symmetric_wall(wall)
+		var world_wall_symmetric := adjacent_cell.get_node(symmetric_wall)
+		world_wall.queue_free()
+		world_wall_symmetric.queue_free()
+		
+	
 func _copy_attributes(generator: MazeGenerator):
 	generator.number_of_rows = number_rows
 	generator.number_of_columns = number_columns
@@ -199,3 +220,6 @@ func _on_Player_used_fire(player_position: Vector3):
 	var player_cell: Cell = world_to_maze_cell(player_position)
 	enlight_path(player_cell, goal)
 	
+func _on_Player_used_axe(player_position: Vector3, wall: String):
+	var player_cell: Cell = world_to_maze_cell(player_position)
+	destroy_symmetric_walls(player_cell, wall)
