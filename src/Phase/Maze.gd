@@ -13,11 +13,19 @@ export(float) var wall_height: float = 3.0
 export(int) var random_seed: int = 255
 
 var grid: Array
+var initial: Cell
+var goal: Cell
 
 func _ready():
 	var maze := generate_maze()
 	grid = maze.grid
+	initial = choose_cell(maze, 0)
+	goal = choose_cell(maze, number_rows - 1)
 	MazeInstancer.instantiate_maze(self, maze, cell_width, cell_height, wall_height)
+
+func choose_cell(maze: Maze, row: int) -> Cell:
+	var random_column = randi() % number_columns
+	return maze.grid[row][random_column]
 
 func generate_maze() -> Maze:
 	var generator := MazeGenerator.new()
