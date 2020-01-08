@@ -1,6 +1,6 @@
 extends KinematicBody
 
-signal wall_painted(player_position, wall, color)
+signal used_ink(player_position, wall, color)
 
 const REGULAR_SPEED: float = 3.0 # Pixels/second
 const WINGS_SPEED: float = 5.0
@@ -37,7 +37,7 @@ func _input(event):
 		swipe_final_position = event.position + event.relative
 
 func _physics_process(delta):
-	move_and_collide(direction * speed * delta)
+	var _collision := move_and_collide(direction * speed * delta)
 	
 func _process(delta):
 	life -= life_decaiment * delta
@@ -71,7 +71,7 @@ func use_food():
 	life_decaiment = REGULAR_LIFE_DECAIMENT
 	
 func use_ink(wall: String, color: Color):
-	emit_signal("wall_painted", translation, wall, color)
+	emit_signal("used_ink", translation, wall, color)
 
 func _on_Item_Detector_body_entered(body: Node):
 	if body.is_in_group("items"):

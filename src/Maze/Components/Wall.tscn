@@ -1,12 +1,11 @@
 [gd_scene load_steps=2 format=2]
 
 [sub_resource type="SpatialMaterial" id=1]
+resource_local_to_scene = true
 albedo_color = Color( 0.282353, 0.282353, 0.282353, 1 )
 
 [node name="Wall" type="CSGBox"]
-calculate_tangents = false
 use_collision = true
-collision_layer = 33
 collision_mask = 0
 height = 4.0
 depth = 0.3

@@ -40,13 +40,13 @@ static func instantiate_walls(parent: Node, walls: Dictionary, cell_width: float
 	var left_boundary := -right_boundary
 	
 	if walls.N:
-		instantiate_wall(parent, 0, top_boundary, 0, cell_width, wall_height, "North Wall")
+		instantiate_wall(parent, 0, top_boundary, 0, cell_width, wall_height, Constants.NORTH_WALL)
 	if walls.E:
-		instantiate_wall(parent, right_boundary, 0, PI / 2, cell_height, wall_height, "East Wall") 
+		instantiate_wall(parent, right_boundary, 0, PI / 2, cell_height, wall_height, Constants.EAST_WALL) 
 	if walls.S:
-		instantiate_wall(parent, 0, bottom_boundary, 0, cell_width, wall_height, "South Wall")
+		instantiate_wall(parent, 0, bottom_boundary, 0, cell_width, wall_height, Constants.SOUTH_WALL)
 	if walls.W:
-		instantiate_wall(parent, left_boundary, 0, PI / 2, cell_height, wall_height, "West Wall")
+		instantiate_wall(parent, left_boundary, 0, PI / 2, cell_height, wall_height, Constants.WEST_WALL)
 
 static func instantiate_wall(parent: Node, x: float, z: float, y_rotation: float, width: float, height: float, name: String) -> void:
 	var wall = Wall.instance()
